@@ -42,7 +42,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import lt.neimantasjocius.combine.ImageUtils
+import lt.neimantasjocius.combine.ai.ImageUtils
 
 @SuppressWarnings("GoodTime")
 class CameraFragment : Fragment() {

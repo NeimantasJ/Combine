@@ -1,6 +1,8 @@
 package lt.neimantasjocius.combine.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -22,11 +24,20 @@ class LaunchActivity : AppCompatActivity() {
 
             }
             override fun onFinish() {
-                val intent = Intent(applicationContext, TutorialActivity::class.java)
-                startActivity(intent)
+                startActivity(checkIfFirstTime())
                 finish()
             }
         }
         timer.start()
+    }
+
+    private fun checkIfFirstTime() : Intent {
+        val sharedPreferences : SharedPreferences = this.getSharedPreferences("APP", Context.MODE_PRIVATE)
+        val firstTime = sharedPreferences.getBoolean("firstTime", true)
+        if(firstTime) {
+            return Intent(this, TutorialActivity::class.java)
+        } else {
+            return Intent(this, FirstPhotoActivity::class.java)
+        }
     }
 }
