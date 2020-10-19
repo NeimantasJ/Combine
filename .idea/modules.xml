@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Combine.iml" filepath="$PROJECT_DIR$/.idea/modules/Combine.iml" group="Combine" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Combine-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Combine-app.iml" group="Combine/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Combine.iml" filepath="$PROJECT_DIR$/.idea/modules/Combine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Combine.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Combine.app.iml" />
     </modules>
   </component>
 </project>
