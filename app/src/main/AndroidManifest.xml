@@ -15,15 +15,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.FirstPhotoActivity"></activity>
-        <activity android:name=".activities.TutorialActivity" />
-        <activity android:name=".activities.LaunchActivity">
+        <activity android:name=".activities.PermissionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.SaveActivity" />
+        <activity android:name=".activities.FirstPhotoActivity" />
+        <activity android:name=".activities.TutorialActivity" />
+        <activity android:name=".activities.LaunchActivity"/>
         <activity
             android:name=".activities.MainActivity"
             android:exported="true" />
