@@ -95,7 +95,7 @@ class TutorialActivity : AppIntro2() {
         val firstTime = sharedPreferences.getBoolean("firstTime", true)
         if(firstTime) {
             with(sharedPreferences.edit()) {
-                putBoolean("firstTime", true)
+                putBoolean("firstTime", false)
                 apply()
             }
         }

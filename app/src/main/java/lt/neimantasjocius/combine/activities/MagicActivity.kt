@@ -23,11 +23,13 @@ import android.widget.ProgressBar
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.nio.charset.Charset
 import java.security.MessageDigest
@@ -39,31 +41,35 @@ import lt.neimantasjocius.combine.R
 import lt.neimantasjocius.combine.ai.*
 import lt.neimantasjocius.combine.camera.CameraFragment
 
+// This is an arbitrary number we are using to keep tab of the permission
+// request. Where an app has multiple context for requesting permission,
+// this can help differentiate the different contexts
 private const val REQUEST_CODE_PERMISSIONS = 10
 
-private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+// This is an array of all the permission specified in the manifest
+//private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
-private const val TAG = "MainActivity"
+private const val TAG = "MagicActivity"
 
 class MainActivity :
   AppCompatActivity(),
-  StyleFragment.OnListFragmentInteractionListener,
-  CameraFragment.OnCaptureFinished {
+  StyleFragment.OnListFragmentInteractionListener/*,
+  CameraFragment.OnCaptureFinished*/ {
 
   private var isRunningModel = false
   private val stylesFragment: StyleFragment = StyleFragment()
   private var selectedStyle: String = ""
 
-  private lateinit var cameraFragment: CameraFragment
+  //private lateinit var cameraFragment: CameraFragment
   private lateinit var viewModel: MLExecutionViewModel
-  private lateinit var viewFinder: FrameLayout
-  private lateinit var resultImageView: ImageView
+  //private lateinit var viewFinder: FrameLayout
+  //private lateinit var resultImageView: ImageView
   private lateinit var originalImageView: ImageView
-  private lateinit var styleImageView: ImageView
-  private lateinit var rerunButton: Button
-  private lateinit var captureButton: ImageButton
-  private lateinit var progressBar: ProgressBar
-  private lateinit var horizontalScrollView: HorizontalScrollView
+  private lateinit var styleImageView: ConstraintLayout
+  //private lateinit var rerunButton: Button
+  //private lateinit var captureButton: ImageButton
+  //private lateinit var progressBar: ProgressBar
+  //private lateinit var horizontalScrollView: HorizontalScrollView
 
   private var lastSavedFile = ""
   private var useGPU = false
@@ -77,21 +83,21 @@ class MainActivity :
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
 
-    val toolbar: Toolbar = findViewById(R.id.toolbar)
+    /*val toolbar: Toolbar = findViewById(R.id.toolbar)
     setSupportActionBar(toolbar)
-    supportActionBar?.setDisplayShowTitleEnabled(false)
+    supportActionBar?.setDisplayShowTitleEnabled(false)*/
 
-    viewFinder = findViewById(R.id.view_finder)
-    resultImageView = findViewById(R.id.result_imageview)
-    originalImageView = findViewById(R.id.original_imageview)
-    styleImageView = findViewById(R.id.style_imageview)
-    captureButton = findViewById(R.id.capture_button)
-    progressBar = findViewById(R.id.progress_circular)
-    horizontalScrollView = findViewById(R.id.horizontal_scroll_view)
-    val useGpuSwitch: Switch = findViewById(R.id.switch_use_gpu)
+    //viewFinder = findViewById(R.id.view_finder)
+    //resultImageView = findViewById(R.id.result_imageview)
+    originalImageView = findViewById(R.id.picture)
+    styleImageView = findViewById(R.id.effect)
+    //captureButton = findViewById(R.id.capture_button)
+    //progressBar = findViewById(R.id.progress_circular)
+    //horizontalScrollView = findViewById(R.id.horizontal_scroll_view)
+    //val useGpuSwitch: Switch = findViewById(R.id.switch_use_gpu)
 
     // Request camera permissions
-    if (allPermissionsGranted()) {
+    /*if (allPermissionsGranted()) {
       addCameraFragment()
     } else {
       ActivityCompat.requestPermissions(
@@ -99,7 +105,7 @@ class MainActivity :
         REQUIRED_PERMISSIONS,
         REQUEST_CODE_PERMISSIONS
       )
-    }
+    }*/
 
     viewModel = AndroidViewModelFactory(application).create(MLExecutionViewModel::class.java)
 
@@ -117,7 +123,7 @@ class MainActivity :
       Log.d(TAG, "Executor created")
     }
 
-    useGpuSwitch.setOnCheckedChangeListener { _, isChecked ->
+    /*useGpuSwitch.setOnCheckedChangeListener { _, isChecked ->
       useGPU = isChecked
       // Disable control buttons to avoid running model before initialization
       enableControls(false)
@@ -130,12 +136,12 @@ class MainActivity :
         // Re-enable control buttons
         runOnUiThread { enableControls(true) }
       }
-    }
+    }*/
 
-    rerunButton = findViewById(R.id.rerun_button)
+    /*rerunButton = findViewById(R.id.rerun_button)
     rerunButton.setOnClickListener {
       startRunningModel()
-    }
+    }*/
 
     styleImageView.setOnClickListener {
       if (!isRunningModel) {
@@ -143,23 +149,23 @@ class MainActivity :
       }
     }
 
-    progressBar.visibility = View.INVISIBLE
+    //progressBar.visibility = View.INVISIBLE
     lastSavedFile = getLastTakenPicture()
     setImageView(originalImageView, lastSavedFile)
 
-    animateCameraButton()
+    //animateCameraButton()
     setupControls()
     enableControls(true)
 
     Log.d(TAG, "finished onCreate!!")
   }
 
-  private fun animateCameraButton() {
+  /*private fun animateCameraButton() {
     val animation = AnimationUtils.loadAnimation(this, R.anim.scale_anim)
     animation.interpolator = BounceInterpolator()
     captureButton.animation = animation
     captureButton.animation.start()
-  }
+  }*/
 
   private fun setImageView(imageView: ImageView, image: Bitmap) {
     Glide.with(baseContext)
@@ -179,28 +185,28 @@ class MainActivity :
   }
 
   private fun updateUIWithResults(modelExecutionResult: ModelExecutionResult) {
-    progressBar.visibility = View.INVISIBLE
-    resultImageView.visibility = View.VISIBLE
-    setImageView(resultImageView, modelExecutionResult.styledImage)
+    //progressBar.visibility = View.INVISIBLE
+    //resultImageView.visibility = View.VISIBLE
+    setImageView(originalImageView, modelExecutionResult.styledImage)
     val logText: TextView = findViewById(R.id.log_view)
     logText.text = modelExecutionResult.executionLog
     enableControls(true)
-    horizontalScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT)
+    //horizontalScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT)
   }
 
   private fun enableControls(enable: Boolean) {
     isRunningModel = !enable
-    rerunButton.isEnabled = enable
-    captureButton.isEnabled = enable
+    //rerunButton.isEnabled = enable
+    //captureButton.isEnabled = enable
   }
 
   private fun setupControls() {
-    captureButton.setOnClickListener {
+    /*captureButton.setOnClickListener {
       it.clearAnimation()
       cameraFragment.takePicture()
-    }
+    }*/
 
-    findViewById<ImageButton>(R.id.toggle_button).setOnClickListener {
+    /*findViewById<ImageButton>(R.id.toggle_button).setOnClickListener {
       lensFacing = if (lensFacing == CameraCharacteristics.LENS_FACING_BACK) {
         CameraCharacteristics.LENS_FACING_FRONT
       } else {
@@ -208,23 +214,23 @@ class MainActivity :
       }
       cameraFragment.setFacingCamera(lensFacing)
       addCameraFragment()
-    }
+    }*/
   }
 
-  private fun addCameraFragment() {
+  /*private fun addCameraFragment() {
     cameraFragment = CameraFragment.newInstance()
     cameraFragment.setFacingCamera(lensFacing)
     supportFragmentManager.popBackStack()
     supportFragmentManager.beginTransaction()
       .replace(R.id.view_finder, cameraFragment)
       .commit()
-  }
+  }*/
 
   /**
    * Process result from permission request dialog box, has the request
    * been granted? If yes, start Camera. Otherwise display a toast
    */
-  override fun onRequestPermissionsResult(
+  /*override fun onRequestPermissionsResult(
     requestCode: Int,
     permissions: Array<String>,
     grantResults: IntArray
@@ -243,24 +249,24 @@ class MainActivity :
         finish()
       }
     }
-  }
+  }*/
 
   /**
    * Check if all permission specified in the manifest have been granted
    */
-  private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+  /*private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
     checkPermission(
       it, Process.myPid(), Process.myUid()
     ) == PackageManager.PERMISSION_GRANTED
-  }
+  }*/
 
-  override fun onCaptureFinished(file: File) {
+  /*override fun onCaptureFinished(file: File) {
     val msg = "Photo capture succeeded: ${file.absolutePath}"
     Log.d(TAG, msg)
 
     lastSavedFile = file.absolutePath
     setImageView(originalImageView, lastSavedFile)
-  }
+  }*/
 
   // And update once new picture is taken?
   // Alternatively we can provide user an ability to select any of taken photos
@@ -292,12 +298,12 @@ class MainActivity :
 
   private fun startRunningModel() {
     if (!isRunningModel && lastSavedFile.isNotEmpty() && selectedStyle.isNotEmpty()) {
-      val chooseStyleLabel: TextView = findViewById(R.id.choose_style_text_view)
-      chooseStyleLabel.visibility = View.GONE
+      //val chooseStyleLabel: TextView = findViewById(R.id.choose_style_text_view)
+      //chooseStyleLabel.visibility = View.GONE
       enableControls(false)
-      setImageView(styleImageView, getUriFromAssetThumb(selectedStyle))
-      resultImageView.visibility = View.INVISIBLE
-      progressBar.visibility = View.VISIBLE
+      //setImageView(styleImageView, getUriFromAssetThumb(selectedStyle))
+      //resultImageView.visibility = View.INVISIBLE
+      //progressBar.visibility = View.VISIBLE
       viewModel.onApplyStyle(
         baseContext, lastSavedFile, selectedStyle, styleTransferModelExecutor,
         inferenceThread
