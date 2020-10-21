@@ -38,7 +38,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
             android:gravity="right|center_vertical"
-            android:text="Pereiti prie išsaugojimo"
+            android:text="@string/continue_to_saving"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/next"
             app:layout_constraintHorizontal_bias="0.0"
@@ -145,7 +145,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="32dp"
-                        android:text="Pasirinkite efektą"
+                        android:text="@string/choose_effect"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -188,7 +188,7 @@
             android:layout_marginBottom="32dp"
             android:fontFamily="@font/roboto_medium"
             android:gravity="center_vertical"
-            android:text="Pasirinkti kitą nuotrauką"
+            android:text="@string/choose_another_photo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/back"
@@ -218,88 +218,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingTop="?attr/actionBarSize"
-        tools:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
-
-            <FrameLayout
-                android:id="@+id/view_finder"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:paddingTop="16dp" />
-        </LinearLayout>
-
-        <HorizontalScrollView
-            android:id="@+id/horizontal_scroll_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/original_imageview"
-                    android:layout_width="@dimen/previewSize"
-                    android:layout_height="@dimen/previewSize"
-                    android:padding="4dp"
-                    android:src="@android:drawable/ic_menu_camera" />
-
-                <FrameLayout
-                    android:layout_width="@dimen/previewSize"
-                    android:layout_height="@dimen/previewSize">
-
-                    <ImageView
-                        android:id="@+id/style_imageview"
-                        android:layout_width="@dimen/previewSize"
-                        android:layout_height="@dimen/previewSize"
-                        android:padding="4dp"
-                        android:src="@drawable/styles_square_thumb" />
-
-                    <TextView
-                        android:id="@+id/choose_style_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/semi_transparent"
-                        android:gravity="center"
-                        android:text="@string/choose_a_style"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@android:color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="@dimen/previewSize"
-                    android:layout_height="@dimen/previewSize">
-
-                    <ProgressBar
-                        android:id="@+id/progress_circular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
-
-                    <ImageView
-                        android:id="@+id/result_imageview"
-                        android:layout_width="@dimen/previewSize"
-                        android:layout_height="@dimen/previewSize"
-                        android:padding="4dp" />
-                </FrameLayout>
-
-            </LinearLayout>
-        </HorizontalScrollView>
-
-    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

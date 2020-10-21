@@ -4,4 +4,23 @@
     <string name="re_run_model" translatable="false">Generuoti iš naujo</string>
     <string name="choose_a_style" translatable="false">Pasirinkite stilių</string>
     <string name="choose_photo">Pasirinkite nuotrauką</string>
+    <string name="first_photo_next">Pritaikyti nuotrauką</string>
+    <string name="take_photo">Nufotografuokite</string>
+    <string name="choose_from_gallery">Pasirinkite iš galerijos</string>
+    <string name="repeat_tutorial">Peržiūrėti apmokymą</string>
+    <string name="continue_to_saving">Pereiti prie išsaugojimo</string>
+    <string name="choose_effect">Pasirinkite efektą</string>
+    <string name="choose_another_photo">Pasirinkti kitą nuotrauką</string>
+    <string name="try_another_photo">Bandyti kitą nuotrauką</string>
+    <string name="save">Išsaugoti</string>
+    <string name="back_to_editing">Grįžti į redagavimą</string>
+
+    <string name="tutorial1_title">Trumpas apmokymas…</string>
+    <string name="tutorial2_title">1. Pasirinkite</string>
+    <string name="tutorial3_title">2. Pritaikykite filtrą</string>
+    <string name="tutorial4_title">3. Išsaugokite</string>
+    <string name="tutorial1_description">Ši programėlė sujungia dvejas nuotraukas į vieną ir leidžia sukurti įdomių efektų jūsų nuotraukoms…</string>
+    <string name="tutorial2_description">Nufotografuokite arba pasirinkite jau esamą nuotrauką…</string>
+    <string name="tutorial3_description">Pasirinkite filtrą - paveiksliuką iš jau galimų,  pagal kurį ir bus pertvarkyta pirmoji nuotrauka</string>
+    <string name="tutorial4_description">Peržiūrėkite sugeneruotą rezultatą ir išsaugokite mobiliajame įrenginyje</string>
 </resources>

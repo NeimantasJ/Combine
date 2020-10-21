@@ -4,12 +4,12 @@ import android.content.Intent
 import android.hardware.camera2.CameraCharacteristics
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
@@ -54,6 +54,9 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         }
         //X
 
+        slideInRight(camera)
+        slideInLeft(gallery)
+
         // Button actions
         val next: ImageButton = findViewById(R.id.next)
         next.setOnClickListener {
@@ -84,5 +87,21 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         val intent = Intent(this, MagicActivity::class.java)
         intent.putExtra("picture", filePath)
         startActivity(intent)
+    }
+
+    private fun slideInRight(layout : ConstraintLayout) {
+        val animation: Animation = AnimationUtils.loadAnimation(
+            applicationContext,
+            R.anim.slide_in_right
+        )
+        layout.startAnimation(animation)
+    }
+
+    private fun slideInLeft(layout : ConstraintLayout) {
+        val animation: Animation = AnimationUtils.loadAnimation(
+            applicationContext,
+            R.anim.slide_in_left
+        )
+        layout.startAnimation(animation)
     }
 }

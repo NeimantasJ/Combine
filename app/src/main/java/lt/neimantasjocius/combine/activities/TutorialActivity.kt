@@ -33,8 +33,8 @@ class TutorialActivity : AppIntro2() {
         isColorTransitionsEnabled = true
         addSlide(
             AppIntroFragment.newInstance(
-            title = "Trumpas apmokymas...",
-            description = "Ši programėlė sujungia dvejas nuotraukas į vieną ir leidžia sukurti įdomių efektų jūsų nuotraukoms...",
+            title = resources.getString(R.string.tutorial1_title),
+            description = resources.getString(R.string.tutorial1_description),
             imageDrawable = R.drawable.effect,
             titleColor = Color.BLACK,
             descriptionColor = Color.BLACK,
@@ -43,8 +43,8 @@ class TutorialActivity : AppIntro2() {
             descriptionTypefaceFontRes = R.font.roboto_medium
         ))
         addSlide(AppIntroFragment.newInstance(
-            title = "1. Pasirinkite",
-            description = "Nufotografuokite arba pasirinkite jau esamą nuotrauką...",
+            title = resources.getString(R.string.tutorial2_title),
+            description = resources.getString(R.string.tutorial2_description),
             imageDrawable = R.drawable.picture,
             titleColor = Color.BLACK,
             descriptionColor = Color.BLACK,
@@ -53,8 +53,8 @@ class TutorialActivity : AppIntro2() {
             descriptionTypefaceFontRes = R.font.roboto_medium
         ))
         addSlide(AppIntroFragment.newInstance(
-            title = "2. Pritaikykite filtrą",
-            description = "Pasirinkite filtrą - paveiksliuką iš jau galimų,  pagal kurį ir bus pertvarkyta pirmoji nuotrauka",
+            title = resources.getString(R.string.tutorial3_title),
+            description = resources.getString(R.string.tutorial3_description),
             imageDrawable = R.drawable.tap,
             titleColor = Color.BLACK,
             descriptionColor = Color.BLACK,
@@ -63,8 +63,8 @@ class TutorialActivity : AppIntro2() {
             descriptionTypefaceFontRes = R.font.roboto_medium
         ))
         addSlide(AppIntroFragment.newInstance(
-            title = "3. Išsaugokite",
-            description = "Peržiūrėkite sugeneruotą rezultatą ir išsaugokite mobiliajame įrenginyje",
+            title = resources.getString(R.string.tutorial4_title),
+            description = resources.getString(R.string.tutorial4_description),
             imageDrawable = R.drawable.floppy,
             titleColor = Color.BLACK,
             descriptionColor = Color.BLACK,

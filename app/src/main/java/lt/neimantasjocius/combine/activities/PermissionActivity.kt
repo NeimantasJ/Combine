@@ -24,7 +24,7 @@ class PermissionActivity : AppCompatActivity() {
         TedPermission.with(this)
             .setPermissionListener(permissionlistener)
             .setDeniedMessage("Norint naudotis programėle privaloma suteikti\nkameros leidimus, kitaip programėlė neveiks")
-            .setPermissions(Manifest.permission.CAMERA)
+            .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .check()
     }
 
