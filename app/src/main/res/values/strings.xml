@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">Combine</string>
-    <string name="gpu" translatable="false">GPU</string>
-    <string name="re_run_model" translatable="false">Generuoti iš naujo</string>
-    <string name="choose_a_style" translatable="false">Pasirinkite stilių</string>
     <string name="choose_photo">Pasirinkite nuotrauką</string>
-    <string name="first_photo_next">Pritaikyti nuotrauką</string>
+    <string name="first_photo_next">Pritaikyti efektą</string>
     <string name="take_photo">Nufotografuokite</string>
     <string name="choose_from_gallery">Pasirinkite iš galerijos</string>
     <string name="repeat_tutorial">Peržiūrėti apmokymą</string>

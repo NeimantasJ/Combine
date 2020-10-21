@@ -61,14 +61,15 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         val next: ImageButton = findViewById(R.id.next)
         next.setOnClickListener {
             if (!filePath.equals("")) {
-                val intent: Intent = Intent(this, MagicActivity::class.java)
+                val intent = Intent(this, MagicActivity::class.java)
                 startActivity(intent)
             }
         }
         val back: ImageButton = findViewById(R.id.back)
         back.setOnClickListener {
-            val intent: Intent = Intent(this, TutorialActivity::class.java)
+            val intent = Intent(this, TutorialActivity::class.java)
             startActivity(intent)
+            finish()
         }
         //X
     }

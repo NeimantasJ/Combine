@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Combine</string>
+    <string name="choose_photo">Choose first photo</string>
+    <string name="first_photo_next">Adjust the effect</string>
+    <string name="take_photo">Take photo</string>
+    <string name="choose_from_gallery">Choose from gallery</string>
+    <string name="repeat_tutorial">Repeat tutorial</string>
+    <string name="continue_to_saving">Save photo</string>
+    <string name="choose_effect">Adjust the effect</string>įvairias
+    <string name="choose_another_photo">Choose another photo</string>
+    <string name="try_another_photo">Try another photo</string>
+    <string name="save">Save</string>
+    <string name="back_to_editing">Back to adjusting</string>
+
+    <string name="tutorial1_title">Short tutorial…</string>
+    <string name="tutorial2_title">1. Choose image</string>
+    <string name="tutorial3_title">2. Adjust filter</string>
+    <string name="tutorial4_title">3. Save it</string>
+    <string name="tutorial1_description">This app combines two photos into one and lets you make various combinations…</string>
+    <string name="tutorial2_description">Take a photo or choose from gallery…</string>
+    <string name="tutorial3_description">Choose filter from the grid and see what happens!</string>
+    <string name="tutorial4_description">Review generated photo and choose to save it or not</string>
+</resources>
