@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="previewSize">256dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
-    <dimen name="bottom_sheet_corner_radius">15dp</dimen>
-    <dimen name="bottom_sheet_top_padding">8dp</dimen>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="block_height">100dp</dimen>
+    <dimen name="margin_2_sides">64dp</dimen>
+    <dimen name="margin_1_side">16dp</dimen>
+    <dimen name="margin_1_side_opposite">32dp</dimen>
 </resources>
