@@ -1,40 +1,88 @@
 package lt.neimantasjocius.combine.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.hardware.camera2.CameraCharacteristics
 import android.os.Bundle
+import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
+import lt.neimantasjocius.combine.camera.CameraFragment
+import java.io.File
 
-class FirstPhotoActivity : AppCompatActivity() {
+
+class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
+
+    private lateinit var frame: FrameLayout
+    private lateinit var cameraFragment: CameraFragment
+    private var lensFacing = CameraCharacteristics.LENS_FACING_BACK
+    private var clickedOnce: Boolean = false
+    private var filePath: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_photo)
 
-        // Block actions
-        val camera : ConstraintLayout = findViewById(R.id.camera)
-        camera.setOnClickListener {
+        frame = findViewById(R.id.view_finder)
+        val camera_png: ImageView = findViewById(R.id.camera_png)
+        val camera_text: TextView = findViewById(R.id.camera_text)
 
+        // Block actions
+        val camera: ConstraintLayout = findViewById(R.id.camera)
+        camera.setOnClickListener {
+            if (clickedOnce) {
+                it.clearAnimation()
+                cameraFragment.takePicture()
+            } else {
+                camera_png.visibility = View.GONE
+                camera_text.visibility = View.GONE
+                frame.visibility = View.VISIBLE
+
+                addCameraFragment()
+                clickedOnce = true
+            }
         }
-        val gallery : ConstraintLayout = findViewById(R.id.gallery)
+        val gallery: ConstraintLayout = findViewById(R.id.gallery)
         gallery.setOnClickListener {
 
         }
         //X
 
         // Button actions
-        val next : ImageButton = findViewById(R.id.next)
+        val next: ImageButton = findViewById(R.id.next)
         next.setOnClickListener {
-            val intent : Intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            if (!filePath.equals("")) {
+                val intent: Intent = Intent(this, MagicActivity::class.java)
+                startActivity(intent)
+            }
         }
-        val back : ImageButton = findViewById(R.id.back)
+        val back: ImageButton = findViewById(R.id.back)
         back.setOnClickListener {
-            val intent : Intent = Intent(this, TutorialActivity::class.java)
+            val intent: Intent = Intent(this, TutorialActivity::class.java)
             startActivity(intent)
         }
         //X
+    }
+
+    private fun addCameraFragment() {
+        cameraFragment = CameraFragment.newInstance()
+        cameraFragment.setFacingCamera(lensFacing)
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.view_finder, cameraFragment)
+            .commit()
+    }
+
+    override fun onCaptureFinished(file: File) {
+        filePath = file.absolutePath
+        val intent = Intent(this, MagicActivity::class.java)
+        intent.putExtra("picture", filePath)
+        startActivity(intent)
     }
 }

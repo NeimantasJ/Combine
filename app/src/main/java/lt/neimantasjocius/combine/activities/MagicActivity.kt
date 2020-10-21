@@ -39,7 +39,7 @@ private const val REQUEST_CODE_PERMISSIONS = 10
 
 private const val TAG = "MagicActivity"
 
-class MainActivity :
+class MagicActivity :
     AppCompatActivity(),
     StyleFragment.OnListFragmentInteractionListener/*,
     CameraFragment.OnCaptureFinished*/ {
@@ -88,6 +88,8 @@ class MainActivity :
         //horizontalScrollView = findViewById(R.id.horizontal_scroll_view)
         //val useGpuSwitch: Switch = findViewById(R.id.switch_use_gpu)
 
+        lastSavedFile = intent.getStringExtra("picture")
+
         next.setOnClickListener {
             val intent = Intent(this, SaveActivity::class.java)
             intent.putExtra("picture", getLastTakenPicture())
@@ -120,7 +122,7 @@ class MainActivity :
         )
 
         mainScope.async(inferenceThread) {
-            styleTransferModelExecutor = StyleTransferModelExecutor(this@MainActivity, useGPU)
+            styleTransferModelExecutor = StyleTransferModelExecutor(this@MagicActivity, useGPU)
             Log.d(TAG, "Executor created")
         }
 
@@ -151,7 +153,7 @@ class MainActivity :
         }
 
         //progressBar.visibility = View.INVISIBLE
-        lastSavedFile = getLastTakenPicture()
+        //lastSavedFile = getLastTakenPicture()
         setImageView(originalImageView, lastSavedFile)
 
         //animateCameraButton()
