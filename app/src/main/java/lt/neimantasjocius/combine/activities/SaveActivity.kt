@@ -58,10 +58,13 @@ class SaveActivity : AppCompatActivity() {
 
     /// @param folderName can be your app's name
     private fun saveImage(bitmap: Bitmap, context: Context, folderName: String) {
+        val timestamp = SimpleDateFormat("yyyyMMdd-HHmmss").format(Date())
+
         if (android.os.Build.VERSION.SDK_INT >= 29) {
             val values = contentValues()
             values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/" + folderName)
             values.put(MediaStore.Images.Media.IS_PENDING, true)
+            values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_$timestamp")
             // RELATIVE_PATH and IS_PENDING are introduced in API 29.
 
             val uri: Uri? = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
@@ -78,7 +81,7 @@ class SaveActivity : AppCompatActivity() {
             if (!directory.exists()) {
                 directory.mkdirs()
             }
-            val fileName = System.currentTimeMillis().toString() + ".png"
+            val fileName = "IMG_$timestamp.png"
             val file = File(directory, fileName)
             saveImageToStream(bitmap, FileOutputStream(file))
             if (file.absolutePath != null) {
