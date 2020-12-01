@@ -1,5 +1,6 @@
 package lt.neimantasjocius.combine.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.hardware.camera2.CameraCharacteristics
 import android.os.Bundle
@@ -12,12 +13,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import kotlinx.android.synthetic.main.about_image.*
 import lt.neimantasjocius.combine.R
 import lt.neimantasjocius.combine.camera.CameraFragment
 import java.io.File
 
 
 class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
+
+    val REQUEST_CODE = 100
 
     private lateinit var frame: FrameLayout
     private lateinit var cameraFragment: CameraFragment
@@ -50,7 +54,7 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         }
         val gallery: ConstraintLayout = findViewById(R.id.gallery)
         gallery.setOnClickListener {
-
+            openGalleryForImage()
         }
         //X
 
@@ -72,6 +76,19 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
             finish()
         }
         //X
+    }
+
+    private fun openGalleryForImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+//            imageView.setImageURI(data?.data) // handle chosen image // handle chosen image
+        }
     }
 
     private fun addCameraFragment() {
