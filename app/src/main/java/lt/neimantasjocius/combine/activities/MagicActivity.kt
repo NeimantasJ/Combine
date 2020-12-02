@@ -21,6 +21,7 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
 import lt.neimantasjocius.combine.R
 import lt.neimantasjocius.combine.ai.*
+import java.io.ByteArrayOutputStream
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.util.concurrent.Executors
@@ -45,6 +46,7 @@ class MagicActivity :
     private lateinit var styleTransferModelExecutor: StyleTransferModelExecutor
     private val inferenceThread = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
     private val mainScope = MainScope()
+    private var finishedBitmap : Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,9 +64,15 @@ class MagicActivity :
         lastSavedFile = intent.getStringExtra("picture")
 
         next.setOnClickListener {
-            val intent = Intent(this, SaveActivity::class.java)
-            intent.putExtra("picture", getLastTakenPicture())
-            startActivity(intent)
+            if(finishedBitmap != null) {
+                val stream = ByteArrayOutputStream()
+                finishedBitmap!!.compress(Bitmap.CompressFormat.PNG, 100, stream)
+                val byteArray: ByteArray = stream.toByteArray()
+
+                val intent = Intent(this, SaveActivity::class.java)
+                intent.putExtra("picture", byteArray)
+                startActivity(intent)
+            }
         }
         back.setOnClickListener {
             finish()
@@ -73,12 +81,13 @@ class MagicActivity :
         viewModel = AndroidViewModelFactory(application).create(MLExecutionViewModel::class.java)
 
         viewModel.styledBitmap.observe(
-          this,
-          Observer { resultImage ->
-            if (resultImage != null) {
-              updateUIWithResults(resultImage)
+            this,
+            Observer { resultImage ->
+                if (resultImage != null) {
+                    finishedBitmap = resultImage.styledImage
+                    updateUIWithResults(resultImage)
+                }
             }
-          }
         )
 
         mainScope.async(inferenceThread) {
@@ -142,8 +151,8 @@ class MagicActivity :
     private fun startRunningModel() {
         if (!isRunningModel && lastSavedFile.isNotEmpty() && selectedStyle.isNotEmpty()) {
             viewModel.onApplyStyle(
-              baseContext, lastSavedFile, selectedStyle, styleTransferModelExecutor,
-              inferenceThread
+                baseContext, lastSavedFile, selectedStyle, styleTransferModelExecutor,
+                inferenceThread
             )
         } else {
             Toast.makeText(this, "Previous Model still running", Toast.LENGTH_SHORT).show()
@@ -152,10 +161,10 @@ class MagicActivity :
 
     class CropTop : BitmapTransformation() {
         override fun transform(
-          pool: BitmapPool,
-          toTransform: Bitmap,
-          outWidth: Int,
-          outHeight: Int
+            pool: BitmapPool,
+            toTransform: Bitmap,
+            outWidth: Int,
+            outHeight: Int
         ): Bitmap {
             return if (toTransform.width == outWidth && toTransform.height == outHeight) {
                 toTransform
@@ -180,7 +189,7 @@ class MagicActivity :
         }
     }
 
-    private fun slideInRight(layout : ConstraintLayout) {
+    private fun slideInRight(layout: ConstraintLayout) {
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.slide_in_right
@@ -188,7 +197,7 @@ class MagicActivity :
         layout.startAnimation(animation)
     }
 
-    private fun slideInLeft(layout : ConstraintLayout) {
+    private fun slideInLeft(layout: ConstraintLayout) {
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.slide_in_left

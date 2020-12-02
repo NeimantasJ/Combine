@@ -19,7 +19,6 @@ import lt.neimantasjocius.combine.R
 import java.io.File
 import java.io.File.separator
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,7 +26,7 @@ import java.util.*
 
 class SaveActivity : AppCompatActivity() {
 
-    var imgPath: String? = null
+    private var lastSavedFile = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +38,11 @@ class SaveActivity : AppCompatActivity() {
 
         fade(save)
 
-        val filePath : String? = intent.getStringExtra("picture")
+        val byteArray = intent.getByteArrayExtra("picture")
+        val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
         save.setOnClickListener {
-            val bMap = BitmapFactory.decodeFile(filePath)
-            saveImage(bMap, this, "Combine")
+            saveImage(bmp, this, "Combine")
         }
 
         next.setOnClickListener {
@@ -67,7 +66,10 @@ class SaveActivity : AppCompatActivity() {
             values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_$timestamp")
             // RELATIVE_PATH and IS_PENDING are introduced in API 29.
 
-            val uri: Uri? = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            val uri: Uri? = context.contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                values
+            )
             if (uri != null) {
                 saveImageToStream(bitmap, context.contentResolver.openOutputStream(uri))
                 values.put(MediaStore.Images.Media.IS_PENDING, false)
@@ -75,7 +77,9 @@ class SaveActivity : AppCompatActivity() {
             }
             Toast.makeText(this, "Image saved successful.", Toast.LENGTH_SHORT).show()
         } else {
-            val directory = File(Environment.getExternalStorageDirectory().toString() + separator + folderName)
+            val directory = File(
+                Environment.getExternalStorageDirectory().toString() + separator + folderName
+            )
             // getExternalStorageDirectory is deprecated in API 29
 
             if (!directory.exists()) {
@@ -114,7 +118,7 @@ class SaveActivity : AppCompatActivity() {
 
     }
 
-    private fun fade(layout : ConstraintLayout) {
+    private fun fade(layout: ConstraintLayout) {
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.fade_in

@@ -1,0 +1,91 @@
+Index: .idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_2_aar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Gradle: androidx.constraintlayout:constraintlayout:2.0.2@aar\">\r\n    <CLASSES>\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/56011088cc43bf9e727af0090a1e9c67/constraintlayout-2.0.2/AndroidManifest.xml\" />\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/56011088cc43bf9e727af0090a1e9c67/constraintlayout-2.0.2/jars/classes.jar!/\" />\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/56011088cc43bf9e727af0090a1e9c67/constraintlayout-2.0.2/res\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES />\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_2_aar.xml	(revision 6ba6b1007017f1a55222f956041f55d25f35fe71)
++++ .idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_2_aar.xml	(date 1606898571217)
+@@ -1,9 +1,9 @@
+ <component name="libraryTable">
+   <library name="Gradle: androidx.constraintlayout:constraintlayout:2.0.2@aar">
+     <CLASSES>
+-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/56011088cc43bf9e727af0090a1e9c67/constraintlayout-2.0.2/AndroidManifest.xml" />
+-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/56011088cc43bf9e727af0090a1e9c67/constraintlayout-2.0.2/jars/classes.jar!/" />
+-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/56011088cc43bf9e727af0090a1e9c67/constraintlayout-2.0.2/res" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba4eb5cbb819e26555b23eb6d64193cd/constraintlayout-2.0.2/res" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba4eb5cbb819e26555b23eb6d64193cd/constraintlayout-2.0.2/AndroidManifest.xml" />
++      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba4eb5cbb819e26555b23eb6d64193cd/constraintlayout-2.0.2/jars/classes.jar!/" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES />
+Index: .idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_2_0_aar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Gradle: androidx.lifecycle:lifecycle-service:2.2.0@aar\">\r\n    <CLASSES>\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6c13fd23aeed2d6070cddd45e5e484bc/jetified-lifecycle-service-2.2.0/res\" />\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c61db0192f8677b8df2be5ff28b86a73/jetified-lifecycle-service-2.2.0/AndroidManifest.xml\" />\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c61db0192f8677b8df2be5ff28b86a73/jetified-lifecycle-service-2.2.0/jars/classes.jar!/\" />\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c61db0192f8677b8df2be5ff28b86a73/jetified-lifecycle-service-2.2.0/res\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES>\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-service/2.2.0/e150534c1cf4462034fe447f30f8c07bcd7d8f22/lifecycle-service-2.2.0-sources.jar!/\" />\r\n    </SOURCES>\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_2_0_aar.xml	(revision 6ba6b1007017f1a55222f956041f55d25f35fe71)
++++ .idea/libraries/Gradle__androidx_lifecycle_lifecycle_service_2_2_0_aar.xml	(date 1606898571379)
+@@ -2,9 +2,10 @@
+   <library name="Gradle: androidx.lifecycle:lifecycle-service:2.2.0@aar">
+     <CLASSES>
+       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6c13fd23aeed2d6070cddd45e5e484bc/jetified-lifecycle-service-2.2.0/res" />
+-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c61db0192f8677b8df2be5ff28b86a73/jetified-lifecycle-service-2.2.0/AndroidManifest.xml" />
+-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c61db0192f8677b8df2be5ff28b86a73/jetified-lifecycle-service-2.2.0/jars/classes.jar!/" />
+       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c61db0192f8677b8df2be5ff28b86a73/jetified-lifecycle-service-2.2.0/res" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/59079ec3d1cfd72201040e1c78142a33/jetified-lifecycle-service-2.2.0/res" />
++      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/59079ec3d1cfd72201040e1c78142a33/jetified-lifecycle-service-2.2.0/jars/classes.jar!/" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/59079ec3d1cfd72201040e1c78142a33/jetified-lifecycle-service-2.2.0/AndroidManifest.xml" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES>
+Index: .idea/libraries/Gradle__androidx_dynamicanimation_dynamicanimation_1_0_0_aar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Gradle: androidx.dynamicanimation:dynamicanimation:1.0.0@aar\">\r\n    <CLASSES>\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e43429701482050856c2765ad550fc0/dynamicanimation-1.0.0/res\" />\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef3b8a5ae1562b65ae90a3ae7f3b3fc9/dynamicanimation-1.0.0/res\" />\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef3b8a5ae1562b65ae90a3ae7f3b3fc9/dynamicanimation-1.0.0/AndroidManifest.xml\" />\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef3b8a5ae1562b65ae90a3ae7f3b3fc9/dynamicanimation-1.0.0/jars/classes.jar!/\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES>\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.dynamicanimation/dynamicanimation/1.0.0/5c050e29af5033ff5e2d58ccf657ae92fdfbda4a/dynamicanimation-1.0.0-sources.jar!/\" />\r\n    </SOURCES>\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/libraries/Gradle__androidx_dynamicanimation_dynamicanimation_1_0_0_aar.xml	(revision 6ba6b1007017f1a55222f956041f55d25f35fe71)
++++ .idea/libraries/Gradle__androidx_dynamicanimation_dynamicanimation_1_0_0_aar.xml	(date 1606898571287)
+@@ -3,8 +3,9 @@
+     <CLASSES>
+       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e43429701482050856c2765ad550fc0/dynamicanimation-1.0.0/res" />
+       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef3b8a5ae1562b65ae90a3ae7f3b3fc9/dynamicanimation-1.0.0/res" />
+-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef3b8a5ae1562b65ae90a3ae7f3b3fc9/dynamicanimation-1.0.0/AndroidManifest.xml" />
+-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ef3b8a5ae1562b65ae90a3ae7f3b3fc9/dynamicanimation-1.0.0/jars/classes.jar!/" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/79e20d3dfa57f3520b156a1869f83d67/dynamicanimation-1.0.0/AndroidManifest.xml" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/79e20d3dfa57f3520b156a1869f83d67/dynamicanimation-1.0.0/res" />
++      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/79e20d3dfa57f3520b156a1869f83d67/dynamicanimation-1.0.0/jars/classes.jar!/" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES>
+Index: .idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_aar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Gradle: androidx.viewpager2:viewpager2:1.0.0@aar\">\r\n    <ANNOTATIONS>\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66649bc448fe6d78e608bd306f288737/jetified-viewpager2-1.0.0/annotations.zip!/\" />\r\n    </ANNOTATIONS>\r\n    <CLASSES>\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66649bc448fe6d78e608bd306f288737/jetified-viewpager2-1.0.0/jars/classes.jar!/\" />\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66649bc448fe6d78e608bd306f288737/jetified-viewpager2-1.0.0/AndroidManifest.xml\" />\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66649bc448fe6d78e608bd306f288737/jetified-viewpager2-1.0.0/res\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES>\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.viewpager2/viewpager2/1.0.0/3c3569044e6969f1ee5c3aa03b08e6717a2d782f/viewpager2-1.0.0-sources.jar!/\" />\r\n    </SOURCES>\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_aar.xml	(revision 6ba6b1007017f1a55222f956041f55d25f35fe71)
++++ .idea/libraries/Gradle__androidx_viewpager2_viewpager2_1_0_0_aar.xml	(date 1606898571474)
+@@ -1,12 +1,12 @@
+ <component name="libraryTable">
+   <library name="Gradle: androidx.viewpager2:viewpager2:1.0.0@aar">
+     <ANNOTATIONS>
+-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66649bc448fe6d78e608bd306f288737/jetified-viewpager2-1.0.0/annotations.zip!/" />
++      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f856e7029a0aff318f12d3f80b6a87d5/jetified-viewpager2-1.0.0/annotations.zip!/" />
+     </ANNOTATIONS>
+     <CLASSES>
+-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66649bc448fe6d78e608bd306f288737/jetified-viewpager2-1.0.0/jars/classes.jar!/" />
+-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66649bc448fe6d78e608bd306f288737/jetified-viewpager2-1.0.0/AndroidManifest.xml" />
+-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/66649bc448fe6d78e608bd306f288737/jetified-viewpager2-1.0.0/res" />
++      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f856e7029a0aff318f12d3f80b6a87d5/jetified-viewpager2-1.0.0/jars/classes.jar!/" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f856e7029a0aff318f12d3f80b6a87d5/jetified-viewpager2-1.0.0/res" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f856e7029a0aff318f12d3f80b6a87d5/jetified-viewpager2-1.0.0/AndroidManifest.xml" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES>
