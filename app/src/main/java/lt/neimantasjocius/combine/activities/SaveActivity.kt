@@ -92,7 +92,7 @@ class SaveActivity : AppCompatActivity() {
                 values.put(MediaStore.Images.Media.IS_PENDING, false)
                 context.contentResolver.update(uri, values, null, null)
             }
-            Toast.makeText(this, "Image saved successful.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         } else {
             val directory = File(
                 Environment.getExternalStorageDirectory().toString() + separator + folderName
@@ -112,8 +112,12 @@ class SaveActivity : AppCompatActivity() {
             }
             val image = Image(fileName)
             imageViewModel.insert(image)
-            Toast.makeText(this, "Image saved successful.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         }
+
+        val intent = Intent(this, ImageHistoryActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun contentValues() : ContentValues {
