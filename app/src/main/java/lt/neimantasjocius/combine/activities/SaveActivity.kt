@@ -16,10 +16,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
+import lt.neimantasjocius.combine.data.Image
+import lt.neimantasjocius.combine.sql.ImageViewModel
+import lt.neimantasjocius.combine.sql.ImageViewModelFactory
+import lt.neimantasjocius.combine.sql.ImagesApplication
 import java.io.File
 import java.io.File.separator
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,7 +30,10 @@ import java.util.*
 
 class SaveActivity : AppCompatActivity() {
 
-    var imgPath: String? = null
+    // TODO Sutvarkyti šitą peace of shit. Net neįsivaizduoju kas čia
+    private val imageViewModel: ImageViewModel by viewModels {
+        ImageViewModelFactory((application as ImagesApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +45,11 @@ class SaveActivity : AppCompatActivity() {
 
         fade(save)
 
-        val filePath : String? = intent.getStringExtra("picture")
+        val byteArray = intent.getByteArrayExtra("picture")
+        val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
         save.setOnClickListener {
-            val bMap = BitmapFactory.decodeFile(filePath)
-            saveImage(bMap, this, "Combine")
+            saveImage(bmp, this, "Combine")
         }
 
         next.setOnClickListener {
@@ -65,9 +71,14 @@ class SaveActivity : AppCompatActivity() {
             values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/" + folderName)
             values.put(MediaStore.Images.Media.IS_PENDING, true)
             values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_$timestamp")
-            // RELATIVE_PATH and IS_PENDING are introduced in API 29.
 
-            val uri: Uri? = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+            val image = Image("IMG_$timestamp")
+            imageViewModel.insert(image)
+
+            val uri: Uri? = context.contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                values
+            )
             if (uri != null) {
                 saveImageToStream(bitmap, context.contentResolver.openOutputStream(uri))
                 values.put(MediaStore.Images.Media.IS_PENDING, false)
@@ -75,8 +86,9 @@ class SaveActivity : AppCompatActivity() {
             }
             Toast.makeText(this, "Image saved successful.", Toast.LENGTH_SHORT).show()
         } else {
-            val directory = File(Environment.getExternalStorageDirectory().toString() + separator + folderName)
-            // getExternalStorageDirectory is deprecated in API 29
+            val directory = File(
+                Environment.getExternalStorageDirectory().toString() + separator + folderName
+            )
 
             if (!directory.exists()) {
                 directory.mkdirs()
@@ -90,6 +102,8 @@ class SaveActivity : AppCompatActivity() {
                 // .DATA is deprecated in API 29
                 context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             }
+            val image = Image(fileName)
+            imageViewModel.insert(image)
             Toast.makeText(this, "Image saved successful.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -114,7 +128,7 @@ class SaveActivity : AppCompatActivity() {
 
     }
 
-    private fun fade(layout : ConstraintLayout) {
+    private fun fade(layout: ConstraintLayout) {
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.fade_in
