@@ -124,19 +124,6 @@ class MagicActivity :
         setImageView(originalImageView, modelExecutionResult.styledImage)
     }
 
-    private fun getLastTakenPicture(): String {
-        val directory = baseContext.filesDir // externalMediaDirs.first()
-        System.out.println(directory.toString())
-        val files =
-            directory.listFiles()?.filter { file -> file.absolutePath.endsWith(".jpg") }?.sorted()
-        if (files == null || files.isEmpty()) {
-            return ""
-        }
-
-        val file = files.last()
-        return file.absolutePath
-    }
-
     override fun onListFragmentInteraction(item: String) {
         selectedStyle = item
         stylesFragment.dismiss()
