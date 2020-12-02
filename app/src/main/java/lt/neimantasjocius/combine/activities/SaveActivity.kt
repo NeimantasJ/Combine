@@ -13,6 +13,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
@@ -40,6 +41,7 @@ class SaveActivity : AppCompatActivity() {
         setContentView(R.layout.activity_save)
 
         val save : ConstraintLayout = findViewById(R.id.save)
+        val list : ConstraintLayout = findViewById(R.id.list)
         val back : ImageView = findViewById(R.id.back)
         val next : ImageView = findViewById(R.id.next)
 
@@ -50,6 +52,12 @@ class SaveActivity : AppCompatActivity() {
 
         save.setOnClickListener {
             saveImage(bmp, this, "Combine")
+        }
+
+        list.setOnClickListener {
+            val intent = Intent(this, ImageHistoryActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         next.setOnClickListener {
