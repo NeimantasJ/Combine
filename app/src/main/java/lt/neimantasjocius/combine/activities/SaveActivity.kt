@@ -13,6 +13,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
@@ -31,6 +32,7 @@ class SaveActivity : AppCompatActivity() {
         setContentView(R.layout.activity_save)
 
         val save : ConstraintLayout = findViewById(R.id.save)
+        val list : ConstraintLayout = findViewById(R.id.list)
         val back : ImageView = findViewById(R.id.back)
         val next : ImageView = findViewById(R.id.next)
 
@@ -41,6 +43,12 @@ class SaveActivity : AppCompatActivity() {
 
         save.setOnClickListener {
             saveImage(bmp, this, "Combine")
+        }
+
+        list.setOnClickListener {
+            val intent = Intent(this, ImageHistoryActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         next.setOnClickListener {
@@ -63,8 +71,8 @@ class SaveActivity : AppCompatActivity() {
             values.put(MediaStore.Images.Media.IS_PENDING, true)
             values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_$timestamp")
 
-//            val image = Image("IMG_$timestamp")
-            //imageViewModel.insert(image) insertinimas vyksta į DB
+            val image = Image("IMG_$timestamp")
+            imageViewModel.insert(image)
 
             val uri: Uri? = context.contentResolver.insert(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -75,7 +83,7 @@ class SaveActivity : AppCompatActivity() {
                 values.put(MediaStore.Images.Media.IS_PENDING, false)
                 context.contentResolver.update(uri, values, null, null)
             }
-            Toast.makeText(this, "Image saved successful.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         } else {
             val directory = File(
                 Environment.getExternalStorageDirectory().toString() + separator + folderName
@@ -93,10 +101,14 @@ class SaveActivity : AppCompatActivity() {
                 // .DATA is deprecated in API 29
                 context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             }
-//            val image = Image(fileName)
-            //imageViewModel.insert(image) insertinimas vyksta į DB
-            Toast.makeText(this, "Image saved successful.", Toast.LENGTH_SHORT).show()
+            val image = Image(fileName)
+            imageViewModel.insert(image)
+            Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         }
+
+        val intent = Intent(this, ImageHistoryActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun contentValues() : ContentValues {
