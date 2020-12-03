@@ -1,6 +1,6 @@
 package lt.neimantasjocius.combine.adapters
 
-import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,26 +10,26 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import lt.neimantasjocius.combine.R
-import lt.neimantasjocius.combine.data.Image
+import lt.neimantasjocius.combine.sql.Image
 
-class ImageListAdapter : ListAdapter<Image, ImageListAdapter.ImageViewHolder>(ImageComparator()) {
+class ImageListAdapter(private val data: MutableList<Image>)
+    : ListAdapter<Image, ImageListAdapter.ImageViewHolder>(ImageComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-        val current = getItem(position)
-        // TODO Pakeisti type
-        holder.bind(current)
+//        val current = getItem(position)
+        val current = data[position]
+        holder.bind(current.path)
     }
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val image: ImageView = itemView.findViewById(R.id.imageView)
 
-        fun bind(filename: String) {
-            // TODO Konvertuoti failą iš image path į bitmap
-            val bitmap =
+        fun bind(filename: String?) {
+            val bitmap = BitmapFactory.decodeFile(filename);
             Glide.with(itemView).asBitmap().load(bitmap).into(image)
         }
 

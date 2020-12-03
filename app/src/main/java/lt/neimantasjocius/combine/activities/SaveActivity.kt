@@ -16,10 +16,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
-import lt.neimantasjocius.combine.data.Image
-import lt.neimantasjocius.combine.sql.ImageViewModel
-import lt.neimantasjocius.combine.sql.ImageViewModelFactory
-import lt.neimantasjocius.combine.sql.ImagesApplication
 import java.io.File
 import java.io.File.separator
 import java.io.FileOutputStream
@@ -29,11 +25,6 @@ import java.util.*
 
 
 class SaveActivity : AppCompatActivity() {
-
-    // TODO Sutvarkyti šitą peace of shit. Net neįsivaizduoju kas čia
-    private val imageViewModel: ImageViewModel by viewModels {
-        ImageViewModelFactory((application as ImagesApplication).repository)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,8 +63,8 @@ class SaveActivity : AppCompatActivity() {
             values.put(MediaStore.Images.Media.IS_PENDING, true)
             values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_$timestamp")
 
-            val image = Image("IMG_$timestamp")
-            imageViewModel.insert(image)
+//            val image = Image("IMG_$timestamp")
+            //imageViewModel.insert(image) insertinimas vyksta į DB
 
             val uri: Uri? = context.contentResolver.insert(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -102,8 +93,8 @@ class SaveActivity : AppCompatActivity() {
                 // .DATA is deprecated in API 29
                 context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             }
-            val image = Image(fileName)
-            imageViewModel.insert(image)
+//            val image = Image(fileName)
+            //imageViewModel.insert(image) insertinimas vyksta į DB
             Toast.makeText(this, "Image saved successful.", Toast.LENGTH_SHORT).show()
         }
     }
