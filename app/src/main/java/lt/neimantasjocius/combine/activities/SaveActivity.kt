@@ -3,6 +3,7 @@ package lt.neimantasjocius.combine.activities
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -41,9 +42,11 @@ class SaveActivity : AppCompatActivity() {
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
         save.setOnClickListener {
-            var imageUri = saveImage(bmp, this, "Combine")
-
+            val imageUri = saveImage(bmp, this, "Combine")
             val intent = Intent(this, ImageHistoryActivity::class.java)
+            val imageFile = File(getRealPathFromURI(imageUri!!));
+            val imagePath = imageFile.absolutePath
+            intent.putExtra("uri", imagePath);
             startActivity(intent)
             finish()
         }
@@ -64,7 +67,20 @@ class SaveActivity : AppCompatActivity() {
         }
     }
 
-    /// @param folderName can be your app's name
+    private fun getRealPathFromURI(contentURI: Uri): String {
+        val result: String
+        val cursor: Cursor? = contentResolver.query(contentURI, null, null, null, null)
+        if (cursor == null) {
+            result = contentURI.path.toString()
+        } else {
+            cursor.moveToFirst()
+            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
+    }
+
     private fun saveImage(bitmap: Bitmap, context: Context, folderName: String): Uri? {
         val timestamp = SimpleDateFormat("yyyyMMdd-HHmmss").format(Date())
         var imageUri: Uri? = null
@@ -85,7 +101,6 @@ class SaveActivity : AppCompatActivity() {
                 context.contentResolver.update(uri, values, null, null)
                 imageUri = uri
             }
-            Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         } else {
             val directory = File(
                 Environment.getExternalStorageDirectory().toString() + separator + folderName
@@ -103,7 +118,6 @@ class SaveActivity : AppCompatActivity() {
                 // .DATA is deprecated in API 29
                 imageUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             }
-            Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         }
         return imageUri
     }

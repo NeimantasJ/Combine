@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import lt.neimantasjocius.combine.R
+import lt.neimantasjocius.combine.activities.MagicActivity
 import lt.neimantasjocius.combine.sql.Image
 
 class ImageListAdapter(private val data: MutableList<Image>)
@@ -29,8 +31,12 @@ class ImageListAdapter(private val data: MutableList<Image>)
         private val image: ImageView = itemView.findViewById(R.id.imageView)
 
         fun bind(filename: String?) {
-            val bitmap = BitmapFactory.decodeFile(filename);
-            Glide.with(itemView).asBitmap().load(bitmap).into(image)
+//            val bitmap = BitmapFactory.decodeFile(filename);
+//            Glide.with(itemView).asBitmap().load(bitmap).into(image)
+            Glide.with(itemView)
+                .asBitmap()
+                .load(filename)
+                .into(image)
         }
 
         companion object {

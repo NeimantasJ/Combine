@@ -62,7 +62,7 @@ class MagicActivity :
         slideInRight(picture_frame)
         slideInLeft(styleImageView)
 
-        lastSavedFile = intent.getStringExtra("picture")
+        lastSavedFile = intent.getStringExtra("picture")!!
 
         next.setOnClickListener {
             if(finishedBitmap != null) {
@@ -130,10 +130,6 @@ class MagicActivity :
         stylesFragment.dismiss()
 
         startRunningModel()
-    }
-
-    private fun getUriFromAssetThumb(thumb: String): String {
-        return "file:///android_asset/thumbnails/$thumb"
     }
 
     private fun startRunningModel() {
