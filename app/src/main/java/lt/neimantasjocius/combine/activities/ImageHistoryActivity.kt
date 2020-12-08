@@ -23,11 +23,12 @@ class ImageHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_history)
 
-        listView = findViewById<RecyclerView>(R.id.imagesRV)
-        listView.layoutManager = LinearLayoutManager(this)
+        database = AppDatabase.getInstance(this)!!
 
-        adapter = ImageListAdapter()
-        recyclerView.adapter = adapter
+        listView = findViewById(R.id.imagesRV)
+        listView.layoutManager = LinearLayoutManager(this) //pakeist į grid layout manager
 
+        adapter = ImageListAdapter(data)
+        listView.adapter = adapter
     }
 }

@@ -13,7 +13,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
@@ -42,7 +41,11 @@ class SaveActivity : AppCompatActivity() {
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
         save.setOnClickListener {
-            saveImage(bmp, this, "Combine")
+            var imageUri = saveImage(bmp, this, "Combine")
+
+            val intent = Intent(this, ImageHistoryActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
         list.setOnClickListener {
@@ -62,17 +65,15 @@ class SaveActivity : AppCompatActivity() {
     }
 
     /// @param folderName can be your app's name
-    private fun saveImage(bitmap: Bitmap, context: Context, folderName: String) {
+    private fun saveImage(bitmap: Bitmap, context: Context, folderName: String): Uri? {
         val timestamp = SimpleDateFormat("yyyyMMdd-HHmmss").format(Date())
+        var imageUri: Uri? = null
 
         if (android.os.Build.VERSION.SDK_INT >= 29) {
             val values = contentValues()
             values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/" + folderName)
             values.put(MediaStore.Images.Media.IS_PENDING, true)
             values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_$timestamp")
-
-            val image = Image("IMG_$timestamp")
-            imageViewModel.insert(image)
 
             val uri: Uri? = context.contentResolver.insert(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -82,6 +83,7 @@ class SaveActivity : AppCompatActivity() {
                 saveImageToStream(bitmap, context.contentResolver.openOutputStream(uri))
                 values.put(MediaStore.Images.Media.IS_PENDING, false)
                 context.contentResolver.update(uri, values, null, null)
+                imageUri = uri
             }
             Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         } else {
@@ -99,16 +101,11 @@ class SaveActivity : AppCompatActivity() {
                 val values = contentValues()
                 values.put(MediaStore.Images.Media.DATA, file.absolutePath)
                 // .DATA is deprecated in API 29
-                context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                imageUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             }
-            val image = Image(fileName)
-            imageViewModel.insert(image)
             Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         }
-
-        val intent = Intent(this, ImageHistoryActivity::class.java)
-        startActivity(intent)
-        finish()
+        return imageUri
     }
 
     private fun contentValues() : ContentValues {

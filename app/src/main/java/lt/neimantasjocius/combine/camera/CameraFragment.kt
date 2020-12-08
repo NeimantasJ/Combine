@@ -58,6 +58,7 @@ class CameraFragment : Fragment() {
 
   private var cameraFacing = CameraCharacteristics.LENS_FACING_FRONT
   private var cameraId = "0"
+  private lateinit var device: CameraDevice
 
   /**
    * define the aspect ratio that will be used by the camera
@@ -286,6 +287,8 @@ class CameraFragment : Fragment() {
     }
   }
 
+
+
   /**
    * Helper function used to capture a still image using the [CameraDevice.TEMPLATE_STILL_CAPTURE]
    * template. It performs synchronization between the [CaptureResult] and the [Image] resulting
@@ -410,6 +413,7 @@ class CameraFragment : Fragment() {
     fragmentJob.cancel()
     cameraThread.quitSafely()
     imageReaderThread.quitSafely()
+    device.close()
   }
 
   /**
