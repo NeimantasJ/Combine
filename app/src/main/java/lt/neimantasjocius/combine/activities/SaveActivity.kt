@@ -32,9 +32,9 @@ import java.util.*
 class SaveActivity : AppCompatActivity() {
 
     // TODO Sutvarkyti šitą peace of shit. Net neįsivaizduoju kas čia
-    private val imageViewModel: ImageViewModel by viewModels {
+    /*private val imageViewModel: ImageViewModel by viewModels {
         ImageViewModelFactory((application as ImagesApplication).repository)
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +81,7 @@ class SaveActivity : AppCompatActivity() {
             values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_$timestamp")
 
             val image = Image("IMG_$timestamp")
-            imageViewModel.insert(image)
+            //imageViewModel.insert(image)
 
             val uri: Uri? = context.contentResolver.insert(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -111,7 +111,7 @@ class SaveActivity : AppCompatActivity() {
                 context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             }
             val image = Image(fileName)
-            imageViewModel.insert(image)
+            //imageViewModel.insert(image)
             Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         }
 

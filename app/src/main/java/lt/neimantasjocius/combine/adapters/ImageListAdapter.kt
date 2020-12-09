@@ -21,7 +21,7 @@ class ImageListAdapter : ListAdapter<Image, ImageListAdapter.ImageViewHolder>(Im
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val current = getItem(position)
         // TODO Pakeisti type
-        holder.bind(current)
+        //holder.bind(current)
     }
 
     class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,8 +29,8 @@ class ImageListAdapter : ListAdapter<Image, ImageListAdapter.ImageViewHolder>(Im
 
         fun bind(filename: String) {
             // TODO Konvertuoti failą iš image path į bitmap
-            val bitmap =
-            Glide.with(itemView).asBitmap().load(bitmap).into(image)
+            //val bitmap =
+            //Glide.with(itemView).asBitmap().load(bitmap).into(image)
         }
 
         companion object {
