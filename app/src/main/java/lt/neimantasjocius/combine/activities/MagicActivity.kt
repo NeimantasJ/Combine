@@ -22,6 +22,7 @@ import kotlinx.coroutines.async
 import lt.neimantasjocius.combine.R
 import lt.neimantasjocius.combine.ai.*
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.util.concurrent.Executors
@@ -61,7 +62,7 @@ class MagicActivity :
         slideInRight(picture_frame)
         slideInLeft(styleImageView)
 
-        lastSavedFile = intent.getStringExtra("picture")
+        lastSavedFile = intent.getStringExtra("picture")!!
 
         next.setOnClickListener {
             if(finishedBitmap != null) {
@@ -129,10 +130,6 @@ class MagicActivity :
         stylesFragment.dismiss()
 
         startRunningModel()
-    }
-
-    private fun getUriFromAssetThumb(thumb: String): String {
-        return "file:///android_asset/thumbnails/$thumb"
     }
 
     private fun startRunningModel() {

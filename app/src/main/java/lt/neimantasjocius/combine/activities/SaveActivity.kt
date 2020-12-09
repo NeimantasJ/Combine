@@ -3,6 +3,7 @@ package lt.neimantasjocius.combine.activities
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -13,14 +14,9 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
-import lt.neimantasjocius.combine.data.Image
-import lt.neimantasjocius.combine.sql.ImageViewModel
-import lt.neimantasjocius.combine.sql.ImageViewModelFactory
-import lt.neimantasjocius.combine.sql.ImagesApplication
 import java.io.File
 import java.io.File.separator
 import java.io.FileOutputStream
@@ -30,11 +26,6 @@ import java.util.*
 
 
 class SaveActivity : AppCompatActivity() {
-
-    // TODO Sutvarkyti šitą peace of shit. Net neįsivaizduoju kas čia
-    /*private val imageViewModel: ImageViewModel by viewModels {
-        ImageViewModelFactory((application as ImagesApplication).repository)
-    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +42,13 @@ class SaveActivity : AppCompatActivity() {
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
         save.setOnClickListener {
-            saveImage(bmp, this, "Combine")
+            val imageUri = saveImage(bmp, this, "Combine")
+            val intent = Intent(this, ImageHistoryActivity::class.java)
+            val imageFile = File(getRealPathFromURI(imageUri!!));
+            val imagePath = imageFile.absolutePath
+            intent.putExtra("uri", imagePath);
+            startActivity(intent)
+            finish()
         }
 
         list.setOnClickListener {
@@ -70,18 +67,29 @@ class SaveActivity : AppCompatActivity() {
         }
     }
 
-    /// @param folderName can be your app's name
-    private fun saveImage(bitmap: Bitmap, context: Context, folderName: String) {
+    private fun getRealPathFromURI(contentURI: Uri): String {
+        val result: String
+        val cursor: Cursor? = contentResolver.query(contentURI, null, null, null, null)
+        if (cursor == null) {
+            result = contentURI.path.toString()
+        } else {
+            cursor.moveToFirst()
+            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
+    }
+
+    private fun saveImage(bitmap: Bitmap, context: Context, folderName: String): Uri? {
         val timestamp = SimpleDateFormat("yyyyMMdd-HHmmss").format(Date())
+        var imageUri: Uri? = null
 
         if (android.os.Build.VERSION.SDK_INT >= 29) {
             val values = contentValues()
             values.put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/" + folderName)
             values.put(MediaStore.Images.Media.IS_PENDING, true)
             values.put(MediaStore.Images.Media.DISPLAY_NAME, "IMG_$timestamp")
-
-            val image = Image("IMG_$timestamp")
-            //imageViewModel.insert(image)
 
             val uri: Uri? = context.contentResolver.insert(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
@@ -91,8 +99,8 @@ class SaveActivity : AppCompatActivity() {
                 saveImageToStream(bitmap, context.contentResolver.openOutputStream(uri))
                 values.put(MediaStore.Images.Media.IS_PENDING, false)
                 context.contentResolver.update(uri, values, null, null)
+                imageUri = uri
             }
-            Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         } else {
             val directory = File(
                 Environment.getExternalStorageDirectory().toString() + separator + folderName
@@ -108,16 +116,10 @@ class SaveActivity : AppCompatActivity() {
                 val values = contentValues()
                 values.put(MediaStore.Images.Media.DATA, file.absolutePath)
                 // .DATA is deprecated in API 29
-                context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                imageUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
             }
-            val image = Image(fileName)
-            //imageViewModel.insert(image)
-            Toast.makeText(this, "Nuotrauka išsaugota", Toast.LENGTH_SHORT).show()
         }
-
-        val intent = Intent(this, ImageHistoryActivity::class.java)
-        startActivity(intent)
-        finish()
+        return imageUri
     }
 
     private fun contentValues() : ContentValues {

@@ -2,8 +2,11 @@ package lt.neimantasjocius.combine.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.database.Cursor
 import android.hardware.camera2.CameraCharacteristics
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -87,8 +90,27 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
-//            imageView.setImageURI(data?.data) // handle chosen image // handle chosen image
+            val fileUri = data?.data
+            val imageFile = File(getRealPathFromURI(fileUri!!));
+            filePath = imageFile.absolutePath
+            val intent = Intent(this, MagicActivity::class.java)
+            intent.putExtra("picture", filePath)
+            startActivity(intent)
         }
+    }
+
+    private fun getRealPathFromURI(contentURI: Uri): String {
+        val result: String
+        val cursor: Cursor? = contentResolver.query(contentURI, null, null, null, null)
+        if (cursor == null) {
+            result = contentURI.path.toString()
+        } else {
+            cursor.moveToFirst()
+            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
     }
 
     private fun addCameraFragment() {
@@ -107,7 +129,7 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         startActivity(intent)
     }
 
-    private fun slideInRight(layout : ConstraintLayout) {
+    private fun slideInRight(layout: ConstraintLayout) {
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.slide_in_right
@@ -115,7 +137,7 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         layout.startAnimation(animation)
     }
 
-    private fun slideInLeft(layout : ConstraintLayout) {
+    private fun slideInLeft(layout: ConstraintLayout) {
         val animation: Animation = AnimationUtils.loadAnimation(
             applicationContext,
             R.anim.slide_in_left
