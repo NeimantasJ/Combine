@@ -3,6 +3,7 @@ package lt.neimantasjocius.combine.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +33,8 @@ class ImageHistoryActivity : AppCompatActivity() {
 
         listView = findViewById(R.id.imagesRV)
         listView.layoutManager = LinearLayoutManager(this) //pakeist į grid layout manager
-
+        adapter = ImageListAdapter(data)
+        listView.adapter = adapter
 
         val imageUri = intent.getStringExtra("uri")
         val image = Image(0, imageUri)
@@ -58,12 +60,45 @@ class ImageHistoryActivity : AppCompatActivity() {
                 }
             )
 
-        adapter = ImageListAdapter(data)
-        listView.adapter = adapter
+        disposable = database.getImageDao()
+            .getAllImages()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    data.clear()
+                    if(!it.isNullOrEmpty())
+                    {
+                        data.addAll(it)
+                    }
+                    adapter.notifyDataSetChanged()
+                    disposable = null
+                },
+                {
+                    Toast.makeText(this, "Error retrieving customers!", Toast.LENGTH_LONG).show()
+                }
+            )
+
+        // Button actions
+        val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener {
+            val intent = Intent(this, SaveActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        //X
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == 0){
+
+        } else {
+
+        }
+
+
 
     }
 }
