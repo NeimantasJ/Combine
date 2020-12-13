@@ -1,21 +1,12 @@
 package lt.neimantasjocius.combine.adapters
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.view.LayoutInflater
-import android.widget.ImageButton
-import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import lt.neimantasjocius.combine.R
-import lt.neimantasjocius.combine.activities.MagicActivity
 import lt.neimantasjocius.combine.sql.Image
 import java.io.File
 
@@ -34,7 +25,7 @@ class ImageListAdapter(private val data: MutableList<Image>) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ImageListAdapter.ViewHolder, position: Int) {
         val image = data[position]
 
-        try {
+        if (image.path != null){
             val file = File(image.path!!)
 
             if (file.exists()) {
@@ -43,10 +34,7 @@ class ImageListAdapter(private val data: MutableList<Image>) : RecyclerView.Adap
                     .load(image.path)
                     .into(holder.imageView)
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
-
     }
 
     override fun getItemCount(): Int {
