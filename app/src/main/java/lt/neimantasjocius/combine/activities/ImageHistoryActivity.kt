@@ -3,9 +3,11 @@ package lt.neimantasjocius.combine.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,13 +34,29 @@ class ImageHistoryActivity : AppCompatActivity() {
         database = AppDatabase.getInstance(this)!!
 
         listView = findViewById(R.id.imagesRV)
-        listView.layoutManager = LinearLayoutManager(this) //pakeist į grid layout manager
+        listView.layoutManager = GridLayoutManager(this, 2) //pakeist į grid layout manager
         adapter = ImageListAdapter(data)
         listView.adapter = adapter
+        loadAllImages()
 
         val imageUri = intent.getStringExtra("uri")
-        val image = Image(0, imageUri)
 
+        if (imageUri != null) {
+            val image = Image(0, imageUri)
+            saveToDB(image)
+        }
+
+        // Button actions
+        val back: ImageButton = findViewById(R.id.back)
+        back.setOnClickListener {
+            val intent = Intent(this, SaveActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        //X
+    }
+
+    private fun saveToDB(image: Image) {
         disposable = database
             .getImageDao()
             .insert(image)
@@ -59,46 +77,26 @@ class ImageHistoryActivity : AppCompatActivity() {
                     Toast.makeText(this, "Failed to add new image", Toast.LENGTH_SHORT).show()
                 }
             )
+    }
 
-        disposable = database.getImageDao()
+    private fun loadAllImages() {
+        disposable = database
+            .getImageDao()
             .getAllImages()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     data.clear()
-                    if(!it.isNullOrEmpty())
-                    {
+                    if (!it.isNullOrEmpty()) {
                         data.addAll(it)
                     }
                     adapter.notifyDataSetChanged()
                     disposable = null
                 },
                 {
-                    Toast.makeText(this, "Error retrieving customers!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Failed to add new image", Toast.LENGTH_SHORT).show()
                 }
             )
-
-        // Button actions
-        val back: ImageButton = findViewById(R.id.back)
-        back.setOnClickListener {
-            val intent = Intent(this, SaveActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        //X
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == 0){
-
-        } else {
-
-        }
-
-
-
     }
 }
