@@ -48,13 +48,11 @@ class SaveActivity : AppCompatActivity() {
             val imagePath = imageFile.absolutePath
             intent.putExtra("uri", imagePath);
             startActivity(intent)
-            finish()
         }
 
         list.setOnClickListener {
             val intent = Intent(this, ImageHistoryActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         next.setOnClickListener {

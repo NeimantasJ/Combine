@@ -3,6 +3,7 @@ package lt.neimantasjocius.combine.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import lt.neimantasjocius.combine.sql.Image
 class ImageHistoryActivity : AppCompatActivity() {
 
     lateinit var listView: RecyclerView
+    lateinit var back: ImageButton
     lateinit var adapter: ImageListAdapter
 
     var data = mutableListOf<Image>()
@@ -30,9 +32,9 @@ class ImageHistoryActivity : AppCompatActivity() {
 
         database = AppDatabase.getInstance(this)!!
 
+        back = findViewById(R.id.back)
         listView = findViewById(R.id.imagesRV)
         listView.layoutManager = LinearLayoutManager(this) //pakeist į grid layout manager
-
 
         val imageUri = intent.getStringExtra("uri")
         val image = Image(0, imageUri)
@@ -60,6 +62,10 @@ class ImageHistoryActivity : AppCompatActivity() {
 
         adapter = ImageListAdapter(data)
         listView.adapter = adapter
+
+        back.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
