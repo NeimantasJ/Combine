@@ -13,7 +13,6 @@ import android.provider.MediaStore
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import lt.neimantasjocius.combine.R
@@ -45,9 +44,9 @@ class SaveActivity : AppCompatActivity() {
         save.setOnClickListener {
             val imageUri = saveImage(bmp, this, "Combine")
             val intent = Intent(this, ImageHistoryActivity::class.java)
-            val imageFile = File(getRealPathFromURI(imageUri!!));
+            val imageFile = File(getRealPathFromURI(imageUri!!))
             val imagePath = imageFile.absolutePath
-            intent.putExtra("uri", imagePath);
+            intent.putExtra("uri", imagePath)
             startActivity(intent)
             //finish()
         }
@@ -125,8 +124,8 @@ class SaveActivity : AppCompatActivity() {
     private fun contentValues() : ContentValues {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/png")
-        values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000);
-        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+        values.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
+        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis())
         return values
     }
 

@@ -1,14 +1,10 @@
 package lt.neimantasjocius.combine.activities
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -20,12 +16,12 @@ import lt.neimantasjocius.combine.sql.Image
 
 class ImageHistoryActivity : AppCompatActivity() {
 
-    lateinit var listView: RecyclerView
-    lateinit var adapter: ImageListAdapter
+    private lateinit var listView: RecyclerView
+    private lateinit var adapter: ImageListAdapter
 
-    var data = mutableListOf<Image>()
-    lateinit var database: AppDatabase
-    var disposable: Disposable? = null
+    private var data = mutableListOf<Image>()
+    private lateinit var database: AppDatabase
+    private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +30,7 @@ class ImageHistoryActivity : AppCompatActivity() {
         database = AppDatabase.getInstance(this)!!
 
         listView = findViewById(R.id.imagesRV)
-        listView.layoutManager = GridLayoutManager(this, 2) //pakeist į grid layout manager
+        listView.layoutManager = GridLayoutManager(this, 2, RecyclerView.VERTICAL, false) //pakeist į grid layout manager
         adapter = ImageListAdapter(data)
         listView.adapter = adapter
         loadAllImages()

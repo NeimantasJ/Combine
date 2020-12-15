@@ -96,8 +96,7 @@ class StyleTransferModelExecutor(
       Log.d(TAG, "Style apply Time to run: $styleTransferTime")
 
       postProcessTime = SystemClock.uptimeMillis()
-      var styledImage =
-        ImageUtils.convertArrayToBitmap(outputImage, CONTENT_IMAGE_SIZE, CONTENT_IMAGE_SIZE)
+      val styledImage = ImageUtils.convertArrayToBitmap(outputImage, CONTENT_IMAGE_SIZE, CONTENT_IMAGE_SIZE)
       postProcessTime = SystemClock.uptimeMillis() - postProcessTime
 
       fullExecutionTime = SystemClock.uptimeMillis() - fullExecutionTime

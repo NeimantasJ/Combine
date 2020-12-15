@@ -58,7 +58,6 @@ class CameraFragment : Fragment() {
 
   private var cameraFacing = CameraCharacteristics.LENS_FACING_FRONT
   private var cameraId = "0"
-  private lateinit var device: CameraDevice
 
   /**
    * define the aspect ratio that will be used by the camera

@@ -16,7 +16,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import kotlinx.android.synthetic.main.about_image.*
 import lt.neimantasjocius.combine.R
 import lt.neimantasjocius.combine.camera.CameraFragment
 import java.io.File
@@ -24,7 +23,7 @@ import java.io.File
 
 class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished {
 
-    val REQUEST_CODE = 100
+    private val REQUEST_CODE = 100
 
     private lateinit var frame: FrameLayout
     private lateinit var cameraFragment: CameraFragment
@@ -95,7 +94,7 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
             val fileUri = data?.data
-            val imageFile = File(getRealPathFromURI(fileUri!!));
+            val imageFile = File(getRealPathFromURI(fileUri!!))
             filePath = imageFile.absolutePath
             val intent = Intent(this, MagicActivity::class.java)
             intent.putExtra("picture", filePath)

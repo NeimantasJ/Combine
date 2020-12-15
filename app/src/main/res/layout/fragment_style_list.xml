@@ -13,5 +13,5 @@
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
-    tools:context=".StyleFragment"
+    tools:context=".ai.StyleFragment"
     tools:listitem="@layout/image_item" />

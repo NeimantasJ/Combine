@@ -25,7 +25,7 @@ class ImageListAdapter(private val data: MutableList<Image>) : RecyclerView.Adap
         val image = data[position]
 
         if (image.path != null){
-            val file = File(image.path!!)
+            val file = File(image.path)
 
             if (file.exists()) {
                 Glide.with(holder.itemView.context)

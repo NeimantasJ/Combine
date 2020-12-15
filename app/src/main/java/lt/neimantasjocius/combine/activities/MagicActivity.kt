@@ -22,7 +22,6 @@ import kotlinx.coroutines.async
 import lt.neimantasjocius.combine.R
 import lt.neimantasjocius.combine.ai.*
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.util.concurrent.Executors
