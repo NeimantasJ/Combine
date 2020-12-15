@@ -70,6 +70,7 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
             if (!filePath.equals("")) {
                 val intent = Intent(this, MagicActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         }
         val back: ImageButton = findViewById(R.id.back)

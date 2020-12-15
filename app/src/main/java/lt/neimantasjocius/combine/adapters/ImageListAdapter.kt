@@ -1,60 +1,43 @@
 package lt.neimantasjocius.combine.adapters
 
-import android.graphics.BitmapFactory
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import lt.neimantasjocius.combine.R
-import lt.neimantasjocius.combine.activities.MagicActivity
 import lt.neimantasjocius.combine.sql.Image
+import java.io.File
 
-class ImageListAdapter(private val data: MutableList<Image>)
-    : ListAdapter<Image, ImageListAdapter.ImageViewHolder>(ImageComparator()) {
+class ImageListAdapter(private val data: MutableList<Image>) : RecyclerView.Adapter<ImageListAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        return ImageViewHolder.create(parent)
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        var imageView: ImageView = v.findViewById(R.id.imageView)
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
-//        val current = getItem(position)
-        val current = data[position]
-        holder.bind(current.path)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageListAdapter.ViewHolder {
+        val v =
+            LayoutInflater.from(parent.context).inflate(R.layout.about_image, parent, false)
+        return ViewHolder(v)
     }
 
-    class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val image: ImageView = itemView.findViewById(R.id.imageView)
+    override fun onBindViewHolder(holder: ImageListAdapter.ViewHolder, position: Int) {
+        val image = data[position]
 
-        fun bind(filename: String?) {
-//            val bitmap = BitmapFactory.decodeFile(filename);
-//            Glide.with(itemView).asBitmap().load(bitmap).into(image)
-            Glide.with(itemView)
-                .asBitmap()
-                .load(filename)
-                .into(image)
-        }
+        if (image.path != null){
+            val file = File(image.path!!)
 
-        companion object {
-            fun create(parent: ViewGroup): ImageViewHolder {
-                val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.about_image, parent, false)
-                return ImageViewHolder(view)
+            if (file.exists()) {
+                Glide.with(holder.itemView.context)
+                    .asBitmap()
+                    .load(image.path)
+                    .into(holder.imageView)
             }
         }
     }
 
-    class ImageComparator : DiffUtil.ItemCallback<Image>() {
-        override fun areItemsTheSame(oldItem: Image, newItem: Image): Boolean {
-            return oldItem === newItem
-        }
-
-        override fun areContentsTheSame(oldItem: Image, newItem: Image): Boolean {
-            return oldItem.path == newItem.path
-        }
+    override fun getItemCount(): Int {
+        return data.size
     }
 }

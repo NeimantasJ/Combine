@@ -41,6 +41,7 @@ class SaveActivity : AppCompatActivity() {
         val byteArray = intent.getByteArrayExtra("picture")
         val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
 
+
         save.setOnClickListener {
             val imageUri = saveImage(bmp, this, "Combine")
             val intent = Intent(this, ImageHistoryActivity::class.java)
@@ -48,17 +49,20 @@ class SaveActivity : AppCompatActivity() {
             val imagePath = imageFile.absolutePath
             intent.putExtra("uri", imagePath);
             startActivity(intent)
+            finish()
         }
 
         list.setOnClickListener {
             val intent = Intent(this, ImageHistoryActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         next.setOnClickListener {
             val intent = Intent(this, FirstPhotoActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
+            finish()
         }
         back.setOnClickListener {
             finish()
@@ -110,12 +114,10 @@ class SaveActivity : AppCompatActivity() {
             val fileName = "IMG_$timestamp.png"
             val file = File(directory, fileName)
             saveImageToStream(bitmap, FileOutputStream(file))
-            if (file.absolutePath != null) {
-                val values = contentValues()
-                values.put(MediaStore.Images.Media.DATA, file.absolutePath)
-                // .DATA is deprecated in API 29
-                imageUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-            }
+            val values = contentValues()
+            values.put(MediaStore.Images.Media.DATA, file.absolutePath)
+            // .DATA is deprecated in API 29
+            imageUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         }
         return imageUri
     }
