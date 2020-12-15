@@ -287,6 +287,13 @@ class CameraFragment : Fragment() {
     }
   }
 
+  fun cameraRelease() {
+    session.device.close()
+    session.close()
+    imageReader.close()
+    cameraInitialized = false
+  }
+
 
 
   /**
@@ -413,7 +420,7 @@ class CameraFragment : Fragment() {
     fragmentJob.cancel()
     cameraThread.quitSafely()
     imageReaderThread.quitSafely()
-    device.close()
+    imageReader.close()
   }
 
   /**

@@ -57,6 +57,9 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         }
         val gallery: ConstraintLayout = findViewById(R.id.gallery)
         gallery.setOnClickListener {
+            if (clickedOnce) {
+                cameraFragment.cameraRelease()
+            }
             openGalleryForImage()
         }
         //X
@@ -97,6 +100,7 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
             val intent = Intent(this, MagicActivity::class.java)
             intent.putExtra("picture", filePath)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -128,6 +132,7 @@ class FirstPhotoActivity : AppCompatActivity(), CameraFragment.OnCaptureFinished
         val intent = Intent(this, MagicActivity::class.java)
         intent.putExtra("picture", filePath)
         startActivity(intent)
+        finish()
     }
 
     private fun slideInRight(layout: ConstraintLayout) {

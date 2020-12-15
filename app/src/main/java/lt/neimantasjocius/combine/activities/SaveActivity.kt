@@ -49,20 +49,20 @@ class SaveActivity : AppCompatActivity() {
             val imagePath = imageFile.absolutePath
             intent.putExtra("uri", imagePath);
             startActivity(intent)
-            finish()
+            //finish()
         }
 
         list.setOnClickListener {
             val intent = Intent(this, ImageHistoryActivity::class.java)
             startActivity(intent)
-            finish()
+            //finish()
         }
 
         next.setOnClickListener {
             val intent = Intent(this, FirstPhotoActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
-            finish()
+            //finish()
         }
         back.setOnClickListener {
             finish()

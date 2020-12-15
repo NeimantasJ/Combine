@@ -49,8 +49,6 @@ class ImageHistoryActivity : AppCompatActivity() {
         // Button actions
         val back: ImageButton = findViewById(R.id.back)
         back.setOnClickListener {
-            val intent = Intent(this, SaveActivity::class.java)
-            startActivity(intent)
             finish()
         }
         //X

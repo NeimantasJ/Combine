@@ -76,6 +76,8 @@ class MagicActivity :
             }
         }
         back.setOnClickListener {
+            val intent = Intent(this, FirstPhotoActivity::class.java)
+            startActivity(intent)
             finish()
         }
 
